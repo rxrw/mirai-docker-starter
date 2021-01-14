@@ -1,0 +1,29 @@
+{
+  "js_optimization_level": -1,
+  "mirai_repo": "https://gitee.com/peratx/mirai-repo/raw/master",
+  "maven_repo": "https://maven.aliyun.com/repository/public",
+  "packages": [
+    {
+      "id": "net.mamoe:mirai-console",
+      "channel": "nightly",
+      "version": "2.0-RC",
+      "type": "libs"
+    },
+    {
+      "id": "net.mamoe:mirai-console-terminal",
+      "channel": "nightly",
+      "version": "2.0-RC",
+      "type": "libs"
+    },
+    {
+      "id": "net.mamoe:mirai-core-all",
+      "channel": "nightly",
+      "version": "2.0-RC",
+      "type": "libs"
+    }
+  ],
+  "disabled_scripts": [],
+  "proxy": "",
+  "log_level": 0,
+  "script_props": {}
+}

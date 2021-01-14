@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  mirai:
+    image: mirai
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
