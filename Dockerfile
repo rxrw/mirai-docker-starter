@@ -10,4 +10,6 @@ RUN mkdir plugins
 
 ADD ./plugins/*.jar ./plugins/
 
+EXPOSE 8000
+
 CMD ["./mcl"]
