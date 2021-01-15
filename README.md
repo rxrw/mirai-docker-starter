@@ -77,3 +77,4 @@ docker-compose exec mirai
 项目中的 `mcl` 是来自官方 `mirai-console-loader` 的 `github release`， plugins 目录下的 `mirai-http-api` 来自 `github release` 。
 
 大家可以随意添加自己需要的插件进去。
+~
