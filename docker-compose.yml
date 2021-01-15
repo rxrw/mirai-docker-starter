@@ -2,11 +2,12 @@ version: '3'
 
 services:
   mirai:
-    image: mirai
+    image: reprover/mirai-http:latest
     volumes:
       - ./config:/app/config
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./plugins:/app/plugins
     ports: 
-      - 8000:8000
+      - 8080:8080
       

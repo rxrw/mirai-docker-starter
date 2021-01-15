@@ -20,6 +20,7 @@ Mirai 是一个在全平台下运行，提供 QQ Android 和 TIM PC 协议支持
 Mirai HTTP Docker 一键启动环境
 
 <b>Mirai-API-http插件 提供HTTP API供所有语言使用mirai</b>
+
 <b>这个项目旨在对想直接用`Mirai-API-http`进行开发的同学们直接启动 Mirai + HTTP 服务</b>
 
 ## 玩法
@@ -27,14 +28,28 @@ Mirai HTTP Docker 一键启动环境
 一键启动：
 
 ```bash
-docker run -p 8000:8000 reprover/mirai-http:latest
+# 生成配置文件
+docker run --rm -it -v ./config:/app/config reprover/mirai-http:latest
+
+#(如果需要其它插件，可以映射目录进去)
+docker run --rm -it -v ./config:/app/config -v ./plugins:/app/plugins reprover/mirai-http:latest
+
+
+#按自己需要修改配置然后运行
+docker run -d -p 8080:8080 -v ./config:/app/config [-v ./plugins:/app/plugins] reprover/mirai-http:latest
 ```
 
-容器默认开 8000 端口，与 Mirai-HTTP-API 默认配置一致，有需要可以自己映射
+容器默认开 8080 端口，与 Mirai-HTTP-API 默认配置一致，有需要可以自己映射
 
-建议使用 docker-compose 一键启动
+建议使用 [docker-compose](https://github.com/rxrw/mirai-docker-starter/blob/master/docker-compose.yml) 一键启动：
 
-脚本在代码里。
+```bash
+#第一次生成配置文件
+docker-compose up
+
+#修改配置文件
+docker-compose up -d
+```
 
 ## 限制
 ### docker
@@ -45,7 +60,20 @@ docker 是容器服务，因此端口开放但网络出口是 docker 的 bridge 
 也可将 network 的 mode 设置为 host 使用主机网卡。
 
 ### console
-console启动的时候会下载
-因此每一次 `docker-compose up` 启动的时候会从`gitee`下载最新的 `mirai`
+console启动的时候会检查更新，目前已经把最新版 2.0-RC 内置了。由于目前 stable 渠道下载的包无法启动，因此使用 `nightly` 包了。·
 
-> 本镜像版本与 mirai-console + mirai-http-api 版本共同更新
+### cli
+由于是 docker 脚本，因此直接启动是启动的 `console` 无交互界面，如需进交互，可以
+
+```bash
+docker-compose exec mirai
+```
+
+不知道是什么原因，在非交互界面时使用 `docker run` 运行起来的进程关不掉，可以用 `docker kill` ，也可以在运行的时候使用 `docker run -it` 进入交互式界面。在 `docker-compose` 下是正常的。
+
+> 本镜像版本与 mirai-console-loader + mirai-http-api 版本保持同步
+
+### 说明
+项目中的 `mcl` 是来自官方 `mirai-console-loader` 的 `github release`， plugins 目录下的 `mirai-http-api` 来自 `github release` 。
+
+大家可以随意添加自己需要的插件进去。
