@@ -2,7 +2,7 @@
  *
  * Mirai Console Loader
  *
- * Copyright (C) 2020 iTX Technologies
+ * Copyright (C) 2020-2021 iTX Technologies
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -73,6 +73,7 @@ phase.cli = () => {
     if (loader.cli.hasOption("c")) {
         let lvl = Integer.parseInt(loader.cli.getOptionValue("c"));
         logger.setLogLevel(lvl);
+        loader.config.logLevel = lvl;
     }
     if (loader.cli.hasOption("s")) {
         let pkgs = loader.config.packages;
