@@ -59,9 +59,9 @@ docker-compose up -d
 
 | 插件                 | 版本   | 源代码 |
 | -------------------- | ------ | ---- |
-| mirai-console-loader | 1.0.5  | <https://github.com/iTXTech/mirai-console-loader> |
-| mirai-http-api       | 1.11.0 | <https://github.com/project-mirai/mirai-api-http> |
-| mirai-core-all       | 2.6.4  | <https://github.com/project-mirai/mirai-repo-mirror> |
+| mirai-console-loader | 1.2.2  | <https://github.com/iTXTech/mirai-console-loader> |
+| mirai-http-api       | 2.2.0 | <https://github.com/project-mirai/mirai-api-http> |
+| mirai-core-all       | 2.7.0  | <https://github.com/project-mirai/mirai-repo-mirror> |
 
 ## 限制
 
@@ -75,7 +75,7 @@ docker 是容器服务，因此端口开放但网络出口是 docker 的 bridge 
 
 ### console
 
-console 启动的时候会检查更新，目前已经把最新版 stable-2.6.4 内置了，有需要可以调整`config.json`。
+console 启动的时候会检查更新，目前已经把最新版 stable-2.7.0 内置了，有需要可以调整`config.json`。
 
 ### cli
 

@@ -27,54 +27,95 @@ importPackage(java.lang);
 importPackage(java.math);
 importPackage(org.itxtech.mcl);
 importPackage(org.itxtech.mcl.component);
+importPackage(org.itxtech.mcl.utils);
 importPackage(org.apache.commons.cli);
 
-loader.options.addOption(Option.builder("u").desc("Disable auto update").longOpt("disable-update").build());
-loader.options.addOption(Option.builder("x").desc("Force download specified version").longOpt("force-version").build());
+loader.options.addOption(Option.builder("u").desc("Update packages").longOpt("update").build());
+let showNotice = false;
 
 phase.load = () => {
     let packages = loader.config.packages;
     for (let i in packages) {
-        check(packages[i]);
+        try {
+            check(packages[i]);
+        } catch (e) {
+            loader.logger.error("Failed to verify package \"" + packages[i].id + "\"");
+            loader.logger.logException(e);
+        }
+    }
+    if (showNotice) {
+        loader.logger.warning(AnsiMsg.newMsg()
+            .lightYellow()
+            .a("Run ")
+            .reset().gold()
+            .a("./mcl -u")
+            .reset().lightYellow()
+            .a(" to update packages.")
+        );
     }
 };
 
-function checkLocalFile(pack) {
-    let dir = new File(pack.type);
-    dir.mkdirs();
-    return Utility.check(new File(dir, pack.getBasename() + ".jar"), new File(dir, pack.getBasename() + ".sha1"));
-}
-
 function check(pack) {
-    logger.info("Verifying \"" + pack.id + "\" version " + pack.version);
+    // "Verifying \"" + pack.id + "\" version " + pack.version
+    loader.logger.info(AnsiMsg.newMsg()
+        .a("Verifying ")
+        .gold().a("\"").a(pack.id).a("\"").reset()
+        .a(" v").gold().a(pack.version)
+    );
     let update = loader.cli.hasOption("u");
-    let force = loader.cli.hasOption("x");
+    let force = pack.isVersionLocked();
     let down = false;
-    if (!checkLocalFile(pack)) {
-        logger.info("\"" + pack.id + ":" + pack.version + "\" is corrupted. Start downloading...");
+    if (!Utility.checkLocalFile(pack)) {
+        loader.logger.error("\"" + pack.id + "\" is corrupted.");
         down = true;
     }
     let info = loader.repo.fetchPackage(pack.id);
     if (!info.channels.containsKey(pack.channel)) {
-        logger.error("Invalid update channel \"" + pack.channel + "\" for Package \"" + pack.name + "\"");
+        loader.logger.error(AnsiMsg.newMsg()
+            .lightRed()
+            .a("Invalid update channel ")
+            .lightBlue().append("\"").a(pack.channel).a("\"")
+            .lightRed()
+            .a(" for package ")
+            .gold().a("\"").a(pack.id).a("\"")
+        );
     } else {
         let target = info.channels[pack.channel];
         let ver = target[target.size() - 1];
-        if ((!update && !pack.version.equals(ver)) || (update && !target.contains(pack.version) && !force)) {
-            if (pack.type.equals(Config.Package.TYPE_PLUGIN)) {
+        if ((update && !pack.version.equals(ver) && !force) || pack.version.trim().equals("")) {
+            if (loader.cli.hasOption("q")) {
+                pack.removeFiles();
+            } else if (pack.type.equals(Config.Package.TYPE_PLUGIN)) {
                 let dir = new File(pack.type);
-                new File(dir, pack.getBasename() + ".jar").renameTo(new File(dir, pack.getBasename() + ".jar.bak"));
+                pack.getJarFile().renameTo(new File(dir, pack.getBasename() + ".jar.bak"));
             }
             pack.version = ver;
             down = true;
         }
+        if (!down && !pack.version.equals(ver)) {
+            loader.logger.warning(AnsiMsg.newMsg()
+                .lightRed()
+                .a("Package ")
+                .reset().gold().a("\"").a(pack.id).a("\"")
+                .reset().lightRed().a(" has newer version ")
+                .reset().gold().a("\"").a(ver).a("\"")
+            );
+            showNotice = true;
+        }
         if (down) {
             downloadFile(pack, info);
-            if (!checkLocalFile(pack)) {
-                logger.warning("The local file \"" + pack.id + "\" is still corrupted, please check the network.");
+            if (!Utility.checkLocalFile(pack)) {
+                loader.logger.error(AnsiMsg.newMsg()
+                    .lightRed()
+                    .a("The local file ")
+                    .gold().a("\"").a(pack.id).a("\"")
+                    .lightRed()
+                    .a(" is still corrupted, please check the network.")
+                );
             }
         }
     }
+    loader.saveConfig();
 }
 
 function downloadFile(pack, info) {
@@ -90,7 +131,10 @@ function downloadFile(pack, info) {
             down(metadata, new File(dir, pack.getName() + "-" + ver + ".metadata"));
         }
     } else {
-        logger.error("Cannot download package \"" + pack.id + "\".");
+        loader.logger.error(AnsiMsg.newMsg()
+            .a("Cannot download package ")
+            .gold().a("\"").a(pack.id).a("\"")
+        );
     }
 }
 
@@ -130,9 +174,9 @@ function down(url, file) {
         var cur = Utility.humanReadableFileSize(current);
 
         let line = " Downloading " + name + " " + buildDownloadBar(total, current) + " " + (alignRight(cur, ttl) + " / " + ttl) + " (" + (Math.floor(current * 1000 / total) / 10) + "%)" + "   \r";
-        logger.print(line);
+        loader.logger.print(line);
         size = line.length
     });
-    logger.print(emptyString.substr(0, size) + '\r');
-    logger.println(" Downloading " + name + " " + buildDownloadBar(1, 1) + " " + ttl);
+    loader.logger.print(emptyString.substr(0, size) + '\r');
+    loader.logger.println(" Downloading " + name + " " + buildDownloadBar(1, 1) + " " + ttl);
 }

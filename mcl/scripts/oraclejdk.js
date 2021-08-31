@@ -26,7 +26,6 @@ importPackage(java.lang);
 importPackage(org.itxtech.mcl.component);
 
 if (System.getProperty("java.vm.vendor").contains("Oracle")) {
-    logger.info("OracleJDK is detected. MCL will download BouncyCastle automatically.");
     let found = false;
     let pkgs = loader.config.packages;
     for (let i in pkgs) {
@@ -40,5 +39,6 @@ if (System.getProperty("java.vm.vendor").contains("Oracle")) {
         let p = new Config.Package("org.bouncycastle:bcprov-jdk15on", "stable");
         p.type = Config.Package.TYPE_CORE;
         loader.config.packages.add(0, p);
+        loader.logger.info("BouncyCastle is installed because OracleJDK is detected.");
     }
 }

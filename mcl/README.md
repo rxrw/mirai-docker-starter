@@ -4,6 +4,8 @@
 
 欢迎阅读自带脚本的[说明](scripts/README.md)，它将教会你如何`安装插件`，`禁用和启用脚本`，`修改包的更新频道`等基本操作。
 
+开发者请参见 [MCL 开发文档](docs/README.md)
+
 ## 简介
 
 `iTX Technologies Mirai Console Loader`（下简称`MCL`）采用模块化设计，包含以下几个基础模块：
@@ -13,7 +15,13 @@
 * `Downloader` 下载器模块，用于下载文件，并实时返回进度。
 * `Logger` 日志模块，用于向控制台输出日志。
 
-## 启动`MCL`
+## 使用 `iTXTech MCL`
+
+### 一键安装
+
+[iTXTech MCL Installer](https://github.com/iTXTech/mcl-installer) 能在所有操作系统上一键安装 `iTXTech MCL`。
+
+### 手动安装
 
 1. 安装 Java 运行时（版本必须 >= 11）
 1. 从 [Releases](https://github.com/iTXTech/mirai-console-loader/releases) 下载最新版本的`MCL`
@@ -22,15 +30,14 @@
 
 ## `Mirai Repo` 列表
 
-* [Gitee](https://gitee.com/peratx/mirai-repo/raw/master) - **默认**，如要镜像请完整拷贝该仓库文件即可
-* [GitHub](https://github.com/project-mirai/mirai-repo-mirror) - 位于`project-mirai`的镜像，首选`Gitee`
+* [Gitee](https://gitee.com/peratx/mirai-repo) - **默认**，如要镜像请完整拷贝该仓库文件即可
+* [GitHub](https://github.com/project-mirai/mirai-repo-mirror) - 位于`project-mirai`的镜像，国内首选`Gitee`
 
 ## `Maven Repo` 列表
 
-* [Bintray - Him188moe](https://dl.bintray.com/him188moe/mirai) - `mamoe` 官方仓库，仅包含`mirai`相关包
-* [JCenter](https://jcenter.bintray.com/) - `mamoe` 官方仓库会自动同步到 `JCenter`
-* [Aliyun](https://maven.aliyun.com/repository/public) - **默认**，阿里云`JCenter`镜像，国内访问速度快
-* [HuaweiCloud](https://mirrors.huaweicloud.com/repository/maven) - 华为云`JCenter`镜像，阿里云不可用时的备选方案
+* [Maven Central](https://repo1.maven.org/maven2/) - `Maven Central`上游
+* [Aliyun](https://maven.aliyun.com/repository/public) - **默认**，阿里云`Maven`镜像，国内访问速度快
+* [HuaweiCloud](https://mirrors.huaweicloud.com/repository/maven) - 华为云`Maven`镜像，阿里云不可用时的备选方案
 
 ## 开源许可证
 

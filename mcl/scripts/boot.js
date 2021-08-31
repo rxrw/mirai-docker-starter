@@ -46,9 +46,10 @@ phase.cli = () => {
         loader.saveConfig();
     }
     if (loader.cli.hasOption("b")) {
-        logger.info("Mirai Console boot entry: " + getBootEntry());
-        logger.info("Mirai Console boot arguments: " + getBootArgs());
-        System.exit(0);
+        loader.logger.info("Mirai Console boot entry: " + getBootEntry());
+        loader.logger.info("Mirai Console boot arguments: " + getBootArgs());
+        loader.exit(0);
+        return;
     }
 }
 
@@ -86,7 +87,7 @@ phase.boot = () => {
                     while (it.hasNext()) {
                         let corePkg = it.next();
                         if (corePkg.getKey().equals(realPkg) && !corePkg.getValue().equals(version)) {
-                            logger.warning("Package \"" + pkg.id + "\" requires \"" + name + "\" version " + version + ". Current version is " + corePkg.getValue());
+                            loader.logger.warning("Package \"" + pkg.id + "\" requires \"" + name + "\" version " + version + ". Current version is " + corePkg.getValue());
                         }
                     }
                 }
