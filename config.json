@@ -6,19 +6,25 @@
     {
       "id": "net.mamoe:mirai-console",
       "channel": "stable",
-      "version": "2.7.0",
+      "version": "2.8.3",
       "type": "libs"
     },
     {
       "id": "net.mamoe:mirai-console-terminal",
       "channel": "stable",
-      "version": "2.7.0",
+      "version": "2.8.3",
       "type": "libs"
     },
     {
       "id": "net.mamoe:mirai-core-all",
       "channel": "stable",
-      "version": "2.7.0",
+      "version": "2.8.3",
+      "type": "libs"
+    },
+    {
+      "id": "net.mamoe.mirai-api-http",
+      "channel": "stable",
+      "version": "2.4.0",
       "type": "libs"
     }
   ],
