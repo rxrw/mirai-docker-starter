@@ -1,6 +1,6 @@
 {
   "js_optimization_level": -1,
-  "mirai_repo": "https://github.com/project-mirai/mirai-repo-mirror",
+  "mirai_repo": "https://repo.itxtech.org",
   "maven_repo": "https://maven.aliyun.com/repository/public",
   "packages": [
     {
