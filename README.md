@@ -59,9 +59,9 @@ docker-compose up -d
 
 | 插件                 | 版本   | 源代码 |
 | -------------------- | ------ | ---- |
-| mirai-console-loader | 1.2.2  | <https://github.com/iTXTech/mirai-console-loader> |
-| mirai-http-api       | 2.2.0 | <https://github.com/project-mirai/mirai-api-http> |
-| mirai-core-all       | 2.7.0  | <https://github.com/project-mirai/mirai-repo-mirror> |
+| mirai-console-loader | 2.0.0  | <https://github.com/iTXTech/mirai-console-loader> |
+| mirai-http-api       | 2.5.0 | <https://github.com/project-mirai/mirai-api-http> |
+| mirai-core-all       | 2.10.1  | <https://github.com/project-mirai/mirai-repo-mirror> |
 
 ## 限制
 
