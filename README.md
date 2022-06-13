@@ -1,3 +1,5 @@
+> 由于我的QQ不停地被封禁，因此无法支持此项目继续开发，欢迎大家使用Fork后的项目 😭
+
 <div align="center">
    <img width="160" src="https://github.com/mamoe/mirai/blob/dev/docs/mirai.png" alt="logo"></br>
 
